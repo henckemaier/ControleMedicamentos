@@ -44,5 +44,22 @@ namespace ControleMedicamentos.Dominio.Tests.ModuloPaciente
             //assert
             Assert.AreEqual("'Cartao SUS' não pode ser nulo.", resultado.Errors[0].ErrorMessage);
         }
+
+        [TestMethod]
+        public void CartaoSUS_do_paciente_deve_ser_no_minimo_15_caracteres()
+        {
+            //arrange
+            var p = new Paciente();
+            p.Nome = "Rodovaldo";
+            p.CartaoSUS = "34534";
+
+            ValidadorPaciente validador = new ValidadorPaciente();
+
+            //action
+            var resultado = validador.Validate(p);
+
+            //assert
+            Assert.AreEqual("'Cartao SUS' deve ser maior ou igual a 15 caracteres. Você digitou 5 caracteres.", resultado.Errors[0].ErrorMessage);
+        }
     }
 }

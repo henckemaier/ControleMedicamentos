@@ -29,4 +29,8 @@
     <Folder Include="ModuloPaciente\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ControleMedicamentos.Infra.BancoDados\ControleMedicamentos.Infra.BancoDados.csproj" />
+  </ItemGroup>
+
 </Project>
