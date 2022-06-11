@@ -6,7 +6,6 @@ namespace ControleMedicamentos.Dominio.ModuloPaciente
     {
         public Paciente()
         {
-
         }
         public Paciente(string nome, string cartaoSUS)
         {

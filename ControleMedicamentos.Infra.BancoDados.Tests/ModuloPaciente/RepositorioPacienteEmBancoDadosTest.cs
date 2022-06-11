@@ -93,5 +93,43 @@ namespace ControleMedicamentos.Infra.BancoDados.Tests.ModuloPaciente
             //assert
             Assert.IsNotNull(pacienteEncontrado);
         }
+
+        [TestMethod]
+        public void Deve_selecionar_todos_pacientes()
+        {
+            //arrange
+            var repositorio = new RepositorioPacienteEmBancoDeDados();
+
+            Paciente paciente1 = new()
+            {
+                Nome = "Edu",
+                CartaoSUS = "123456789012345"
+            };
+            repositorio.Inserir(paciente1);
+
+            Paciente paciente2 = new()
+            {
+                Nome = "Emanuel",
+                CartaoSUS = "123558789012645"
+            };
+            repositorio.Inserir(paciente2);
+
+            Paciente paciente3 = new()
+            {
+                Nome = "Lucas",
+                CartaoSUS = "223456789612348"
+            };
+            repositorio.Inserir(paciente3);
+
+            //action
+            var pacientes = repositorio.SelecionarTodos();
+
+            //assert
+            Assert.AreEqual(3, pacientes.Count);
+
+            Assert.AreEqual("Edu", pacientes[0].Nome);
+            Assert.AreEqual("Emanuel", pacientes[1].Nome);
+            Assert.AreEqual("Lucas", pacientes[2].Nome);
+        }
     }
 }
