@@ -132,17 +132,68 @@ namespace ControleMedicamentos.Infra.BancoDados.ModuloFuncionario
 
             return resultadoValidacao;
         }
-
-
-        public Funcionario SelecionarPorNumero(int numero)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public List<Funcionario> SelecionarTodos()
         {
-            throw new System.NotImplementedException();
+            SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
+
+            SqlCommand comandoSelecao = new SqlCommand(sqlSelecionarTodos, conexaoComBanco);
+
+            conexaoComBanco.Open();
+            SqlDataReader leitorFuncionario = comandoSelecao.ExecuteReader();
+
+            List<Funcionario> funcionarios = new List<Funcionario>();
+
+            while (leitorFuncionario.Read())
+            {
+                Funcionario funcionario = ConverterParaFuncionario(leitorFuncionario);
+
+                funcionarios.Add(funcionario);
+            }
+
+            conexaoComBanco.Close();
+
+            return funcionarios;
         }
+
+
+        public Funcionario SelecionarPorNumero(int id)
+        {
+            SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
+
+            SqlCommand comandoSelecao = new SqlCommand(sqlSelecionarPorId, conexaoComBanco);
+
+            comandoSelecao.Parameters.AddWithValue("ID", id);
+
+            conexaoComBanco.Open();
+            SqlDataReader leitorFuncionario = comandoSelecao.ExecuteReader();
+
+            Funcionario funcionario = null;
+            if (leitorFuncionario.Read())
+                funcionario = ConverterParaFuncionario(leitorFuncionario);
+
+            conexaoComBanco.Close();
+
+            return funcionario;
+        }
+
+        private Funcionario ConverterParaFuncionario(SqlDataReader leitorFuncionario)
+        {
+            int id = Convert.ToInt32(leitorFuncionario["ID"]);
+            string nome = Convert.ToString(leitorFuncionario["NOME"]);
+            string login = Convert.ToString(leitorFuncionario["LOGIN"]);
+            string senha = Convert.ToString(leitorFuncionario["SENHA"]);
+
+            var funcionario = new Funcionario
+            {
+                Id = id,
+                Nome = nome,
+                Login = login,
+                Senha = senha
+            };
+
+            return funcionario;
+        }
+
         private void ConfigurarParametrosFuncionario(Funcionario novoRegistro, SqlCommand comando)
         {
             comando.Parameters.AddWithValue("ID", novoRegistro.Id);
