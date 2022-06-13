@@ -1,6 +1,4 @@
-﻿
-
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace ControleMedicamentos.Dominio.ModuloFuncionario
 {

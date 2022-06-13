@@ -5,8 +5,8 @@
     [Lote]                 VARCHAR (300) NULL,
     [Validade]             DATE          NULL,
     [QuantidadeDisponivel] INT           NULL,
-    [Forncedor_Id]         INT           NULL,
+    [Fornecedor_Id]         INT           NULL,
     CONSTRAINT [PK_TBMedicamento] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_TBMedicamento_TBFornecedor] FOREIGN KEY ([Forncedor_Id]) REFERENCES [dbo].[TBFornecedor] ([Id])
+    CONSTRAINT [FK_TBMedicamento_TBFornecedor] FOREIGN KEY ([Fornecedor_Id]) REFERENCES [dbo].[TBFornecedor] ([Id])
 );
 

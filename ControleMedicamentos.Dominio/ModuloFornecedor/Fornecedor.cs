@@ -1,7 +1,13 @@
-﻿namespace ControleMedicamentos.Dominio.ModuloFornecedor
+﻿using System;
+
+namespace ControleMedicamentos.Dominio.ModuloFornecedor
 {
     public class Fornecedor : EntidadeBase<Fornecedor>
     {
+        public Fornecedor()
+        {
+        }
+
         public Fornecedor(string nome, string telefone, string email, string cidade, string estado)
         {
             Nome = nome;
@@ -19,7 +25,33 @@
 
         public override void Atualizar(Fornecedor registro)
         {
-            throw new System.NotImplementedException();
+            Id = registro.Id;
+            Nome = registro.Nome;
+            Telefone = registro.Telefone;
+            Email = registro.Email;
+            Cidade = registro.Cidade;
+            Estado = registro.Estado;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Fornecedor fornecedor &&
+                   Id == fornecedor.Id &&
+                   Nome == fornecedor.Nome &&
+                   Telefone == fornecedor.Telefone &&
+                   Email == fornecedor.Email &&
+                   Cidade == fornecedor.Cidade &&
+                   Estado == fornecedor.Estado;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id, Nome, Telefone, Email, Cidade, Estado);
+        }
+
+        public override string ToString()
+        {
+            return Nome + " - " + Telefone + " - " + Email + " - " + Cidade + " - " + Estado;
         }
     }
 }
