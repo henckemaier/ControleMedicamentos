@@ -166,6 +166,84 @@ namespace ControleMedicamento.Infra.BancoDados.Tests.ModuloMedicamento
             Assert.IsNotNull(medicamentoEncontrado);
         }
 
+        [TestMethod]
+        public void Deve_selecionar_todos_medicamentos()
+        {
+            var repositorio2 = new RepositorioFornecedorEmBancoDados();
+            //arrange
+            Fornecedor novoFornecedor1 = new()
+            {
+                Nome = "Remedios Inc",
+                Telefone = "123456789098",
+                Email = "blablabla@outlook.com",
+                Cidade = "Lages",
+                Estado = "Santa Catarina"
+            };
+            repositorio2.Inserir(novoFornecedor1);
 
+            Fornecedor novoFornecedor2 = new()
+            {
+                Nome = "Drogaria Inc",
+                Telefone = "923356789698",
+                Email = "blablablablabla@outlook.com",
+                Cidade = "Lages",
+                Estado = "Santa Catarina"
+            };
+            repositorio2.Inserir(novoFornecedor2);
+
+            Fornecedor novoFornecedor3 = new()
+            {
+                Nome = "Remedios e Curativos do Seu Jorge",
+                Telefone = "022356669698",
+                Email = "blablablablablablabla@outlook.com",
+                Cidade = "Lages",
+                Estado = "Santa Catarina"
+            };
+            repositorio2.Inserir(novoFornecedor3);
+
+            var repositorio = new RepositorioMedicamentoEmBancoDados();
+
+            Medicamento novoMedicamento1 = new()
+            {
+                Nome = "Decongeste",
+                Descricao = "Bom para febre.",
+                Lote = "123",
+                Validade = DateTime.Now.AddDays(30).Date,
+                QuantidadeDisponivel = 12,
+                Fornecedor = novoFornecedor1
+            };
+            repositorio.Inserir(novoMedicamento1);
+
+            Medicamento novoMedicamento2 = new()
+            {
+                Nome = "Comprimido de vitamina",
+                Descricao = "O que não mata, engorda.",
+                Lote = "047",
+                Validade = DateTime.Now.AddDays(20).Date,
+                QuantidadeDisponivel = 100,
+                Fornecedor = novoFornecedor2
+            };
+            repositorio.Inserir(novoMedicamento2);
+
+            Medicamento novoMedicamento3 = new()
+            {
+                Nome = "Bandagem",
+                Descricao = "Impede sangramento.",
+                Lote = "893",
+                Validade = DateTime.Now.AddDays(5).Date,
+                QuantidadeDisponivel = 80,
+                Fornecedor = novoFornecedor3
+            };
+            repositorio.Inserir(novoMedicamento3);
+
+            var medicamentos = repositorio.SelecionarTodos();
+
+            //assert
+            Assert.AreEqual(3, medicamentos.Count);
+
+            Assert.AreEqual("Decongeste", medicamentos[0].Nome);
+            Assert.AreEqual("Comprimido de vitamina", medicamentos[1].Nome);
+            Assert.AreEqual("Bandagem", medicamentos[2].Nome);
+        }
     }
 }
