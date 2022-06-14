@@ -21,10 +21,7 @@ namespace ControleMedicamentos.Dominio.ModuloMedicamento
                 .NotNull().NotEmpty();
 
             RuleFor(x => x.Validade)
-                .NotNull().NotEmpty();
-
-            RuleFor(x => x.QuantidadeDisponivel)
-                .NotNull().NotEmpty();           
+                .NotNull().NotEmpty();         
         }
     }
 }

@@ -162,6 +162,28 @@ namespace ControleMedicamento.Infra.BancoDados.ModuloMedicamento
 
             return resultadoValidacao;
         }
+        public List<Medicamento> SelecionarTodos()
+        {
+            SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
+
+            SqlCommand comandoSelecao = new SqlCommand(sqlSelecionarTodos, conexaoComBanco);
+
+            conexaoComBanco.Open();
+            SqlDataReader leitorMedicamento = comandoSelecao.ExecuteReader();
+
+            List<Medicamento> medicamentos = new List<Medicamento>();
+
+            while (leitorMedicamento.Read())
+            {
+                Medicamento medicamento = ConverterParaMedicamento(leitorMedicamento);
+
+                medicamentos.Add(medicamento);
+            }
+
+            conexaoComBanco.Close();
+
+            return medicamentos;
+        }
 
         public Medicamento SelecionarPorNumero(int id)
         {
@@ -203,17 +225,26 @@ namespace ControleMedicamento.Infra.BancoDados.ModuloMedicamento
             };
             if (leitorMedicamento["FORNECEDOR_ID"] != DBNull.Value)
             {
-                var id = Convert.ToInt32(leitorMedicamento["CONTATO_NUMERO"]);
+                var idFornecedor = Convert.ToInt32(leitorMedicamento["FORNECEDOR_ID"]);
+                var nomeFornecedor = Convert.ToString(leitorMedicamento["NOME"]);
+                var telefone = Convert.ToString(leitorMedicamento["TELEFONE"]);
                 var email = Convert.ToString(leitorMedicamento["EMAIL"]);
-                var nome = Convert.ToString(leitorMedicamento["NOME"]);
+                var cidade = Convert.ToString(leitorMedicamento["CIDADE"]);
+                var estado = Convert.ToString(leitorMedicamento["ESTADO"]);
+
+                medicamento.Fornecedor = new Fornecedor
+                {
+                    Id = idFornecedor,
+                    Nome = nomeFornecedor,
+                    Telefone = telefone,
+                    Email = email,
+                    Cidade = cidade,
+                    Estado = estado
+                };
             }
             return medicamento;
         }
 
-        public List<Medicamento> SelecionarTodos()
-        {
-            throw new System.NotImplementedException();
-        }
         private void ConfigurarParametrosMedicamento(Medicamento novoRegistro, SqlCommand comando)
         {
             comando.Parameters.AddWithValue("ID", novoRegistro.Id);
