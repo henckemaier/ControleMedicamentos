@@ -12,6 +12,7 @@ namespace ControleMedicamentos.Dominio.ModuloPaciente
             RuleFor(x => x.CartaoSUS)
                 .MinimumLength(15)
                 .NotNull().NotEmpty();
+
         }
     }
 }

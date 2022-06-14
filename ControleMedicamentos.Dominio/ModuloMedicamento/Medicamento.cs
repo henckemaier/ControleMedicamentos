@@ -30,7 +30,11 @@ namespace ControleMedicamentos.Dominio.ModuloMedicamento
 
         public override void Atualizar(Medicamento registro)
         {
-            throw new NotImplementedException();
+            Nome = registro.Nome;
+            Descricao = registro.Descricao;
+            Lote = registro.Lote;
+            Validade = registro.Validade;
+            Requisicoes = registro.Requisicoes;
         }
     }
 }
