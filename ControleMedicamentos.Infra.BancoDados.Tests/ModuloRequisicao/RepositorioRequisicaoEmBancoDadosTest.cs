@@ -403,8 +403,6 @@ namespace ControleMedicamentos.Infra.BancoDados.Tests.ModuloRequisicao
             Assert.AreEqual(5, requisicoes[0].QtdMedicamento);
             Assert.AreEqual(3, requisicoes[1].QtdMedicamento);
             Assert.AreEqual(10, requisicoes[2].QtdMedicamento);
-
-
         }
     }
 }
