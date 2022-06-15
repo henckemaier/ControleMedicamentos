@@ -14,9 +14,16 @@ namespace ControleMedicamentos.Dominio.ModuloRequisicao
         public DateTime Data { get; set; }
         public ModuloFuncionario.Funcionario Funcionario { get; set; }
 
+        public Requisicao(int qtdMedicamento, DateTime data)
+        {
+            QtdMedicamento = qtdMedicamento;
+            Data = data;
+        }
+
         public override void Atualizar(Requisicao registro)
         {
-            throw new NotImplementedException();
+            QtdMedicamento = registro.QtdMedicamento;
+            Data = registro.Data;
         }
     }
 }

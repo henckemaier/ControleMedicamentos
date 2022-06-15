@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Dominio", "1 - Dominio", "{E4ADD486-DDC2-4CFA-B495-115E0009F6AA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Infra", "2 - Infra", "{758DFCFD-913E-4BFE-97A2-7861A23E3C5E}"
+	ProjectSection(SolutionItems) = preProject
+		ControleMedicamentos.Dominio\ModuloRequisicao\Requisicao.cs = ControleMedicamentos.Dominio\ModuloRequisicao\Requisicao.cs
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Testes", "3 - Testes", "{65427580-4628-4172-8EC1-0922514F3AAD}"
 EndProject
