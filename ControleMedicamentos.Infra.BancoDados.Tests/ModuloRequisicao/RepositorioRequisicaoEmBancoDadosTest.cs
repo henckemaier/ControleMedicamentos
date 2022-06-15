@@ -275,7 +275,7 @@ namespace ControleMedicamentos.Infra.BancoDados.Tests.ModuloRequisicao
 
             ////////////////////////////////
 
-            Requisicao novoRequisicao1 = new()
+            Requisicao novoRequisicao = new()
             {
                 Funcionario = novoFuncionario,
                 Paciente = novoPaciente,
@@ -286,9 +286,10 @@ namespace ControleMedicamentos.Infra.BancoDados.Tests.ModuloRequisicao
 
             var repositorioRequisicao = new RepositorioRequisicaoEmBancoDados();
 
-            repositorioRequisicao.Inserir(novoRequisicao1);
+            repositorioRequisicao.Inserir(novoRequisicao);
 
-            
+            //assert
+            Requisicao requisicaoEncontrada = repositorioRequisicao.SelecionarPorNumero(novoRequisicao.Id);
 
             //action
             repositorioRequisicao.Excluir(requisicaoEncontrada);
@@ -355,7 +356,7 @@ namespace ControleMedicamentos.Infra.BancoDados.Tests.ModuloRequisicao
 
             ////////////////////////////////
 
-            Requisicao novoRequisicao = new()
+            Requisicao novoRequisicao1 = new()
             {
                 Funcionario = novoFuncionario,
                 Paciente = novoPaciente,
@@ -366,7 +367,44 @@ namespace ControleMedicamentos.Infra.BancoDados.Tests.ModuloRequisicao
 
             var repositorioRequisicao = new RepositorioRequisicaoEmBancoDados();
 
-            repositorioRequisicao.Inserir(novoRequisicao);
+            repositorioRequisicao.Inserir(novoRequisicao1);
+
+            ////////////////////////////////
+
+            Requisicao novoRequisicao2 = new()
+            {
+                Funcionario = novoFuncionario,
+                Paciente = novoPaciente,
+                Medicamento = novoMedicamento,
+                QtdMedicamento = 3,
+                Data = DateTime.Now.Date
+            };
+
+            repositorioRequisicao.Inserir(novoRequisicao2);
+
+            ////////////////////////////////
+
+            Requisicao novoRequisicao3 = new()
+            {
+                Funcionario = novoFuncionario,
+                Paciente = novoPaciente,
+                Medicamento = novoMedicamento,
+                QtdMedicamento = 10,
+                Data = DateTime.Now.Date
+            };
+
+            repositorioRequisicao.Inserir(novoRequisicao3);
+
+            var requisicoes = repositorioRequisicao.SelecionarTodos();
+
+            //assert
+            Assert.AreEqual(3, requisicoes.Count);
+
+            Assert.AreEqual(5, requisicoes[0].QtdMedicamento);
+            Assert.AreEqual(3, requisicoes[1].QtdMedicamento);
+            Assert.AreEqual(10, requisicoes[2].QtdMedicamento);
+
+
         }
     }
 }
