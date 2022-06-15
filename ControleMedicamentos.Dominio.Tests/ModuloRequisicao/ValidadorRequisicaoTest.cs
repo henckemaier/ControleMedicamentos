@@ -1,4 +1,7 @@
-﻿using ControleMedicamentos.Dominio.ModuloFuncionario;
+﻿using ControleMedicamentos.Dominio.ModuloFornecedor;
+using ControleMedicamentos.Dominio.ModuloFuncionario;
+using ControleMedicamentos.Dominio.ModuloMedicamento;
+using ControleMedicamentos.Dominio.ModuloPaciente;
 using ControleMedicamentos.Dominio.ModuloRequisicao;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -69,9 +72,14 @@ namespace ControleMedicamentos.Dominio.Tests.ModuloRequisicao
         public void Medicamento_deve_ser_informado()
         {
             //arrange
+            var c = new Paciente();
+            c.Nome = "edu";
+            c.CartaoSUS = "111111111111111";
+
             var r = new Requisicao();
             r.QtdMedicamento = 2;
             r.Data = DateTime.Now.Date;
+            r.Paciente = c;
             r.Medicamento = null;
 
             ValidadorRequisicao validador = new ValidadorRequisicao();
@@ -87,9 +95,30 @@ namespace ControleMedicamentos.Dominio.Tests.ModuloRequisicao
         public void Funcionario_deve_ser_informado()
         {
             //arrange
+            var c = new Paciente();
+            c.Nome = "edu";
+            c.CartaoSUS = "111111111111111";
+
+            var f = new Fornecedor();
+            f.Nome = "gddfgdfg";
+            f.Email = "sdfdsffdsffd";
+            f.Telefone = "11111111111";
+            f.Cidade = "Lages";
+            f.Estado = "Santa Catarina";
+
+            var m = new Medicamento();
+            m.Nome = "dsfgfdgd";
+            m.Descricao = "dfgdfgdfg";
+            m.Lote = "234234234";
+            m.QuantidadeDisponivel = 2;
+            m.Validade = DateTime.Now.Date;
+            m.Fornecedor = f;
+
             var r = new Requisicao();
             r.QtdMedicamento = 2;
             r.Data = DateTime.Now.Date;
+            r.Paciente = c;
+            r.Medicamento = m;
             r.Funcionario = null;
 
             ValidadorRequisicao validador = new ValidadorRequisicao();
