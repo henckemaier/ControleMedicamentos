@@ -7,6 +7,9 @@ namespace ControleMedicamentos.Dominio.ModuloRequisicao
 {
     public class Requisicao : EntidadeBase<Requisicao>
     {   
+        public Requisicao()
+        {
+        }
 
         public Medicamento Medicamento { get; set; }
         public Paciente Paciente { get; set; }
