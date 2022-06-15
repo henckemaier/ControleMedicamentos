@@ -82,19 +82,16 @@ namespace ControleMedicamentos.Infra.BancoDados.ModuloRequisicao
                 FO.[CIDADE],
                 FO.[ESTADO]
             FROM
-                [TBREQUISICAO] AS R LEFT JOIN [TBFUNCIONARIO] AS FU
+                [TBREQUISICAO] AS R INNER JOIN [TBFUNCIONARIO] AS FU
             ON
-                FU.ID = R.FUNCIONARIO_ID
-            FROM
-                [TBREQUISICAO] AS R LEFT JOIN [TBPACIENTE] AS P
+                FU.ID = R.FUNCIONARIO_ID INNER JOIN
+                [TBPACIENTE] AS P
             ON
                 P.ID = R.PACIENTE_ID
-            FROM
-                [TBREQUISICAO] AS R LEFT JOIN [TBMEDICAMENTO] AS M
+                INNER JOIN [TBMEDICAMENTO] AS M
             ON
                 M.ID = R.MEDICAMENTO_ID
-            FROM
-                [TBREQUISICAO] AS R LEFT JOIN [TBFORNECEDOR] AS FO
+                INNER JOIN [TBFORNECEDOR] AS FO
             ON
                 FO.ID = M.FORNECEDOR_ID";
 
@@ -127,24 +124,21 @@ namespace ControleMedicamentos.Infra.BancoDados.ModuloRequisicao
                 FO.[CIDADE],
                 FO.[ESTADO]
             FROM
-                [TBREQUISICAO] AS R LEFT JOIN [TBFUNCIONARIO] AS FU
+                [TBREQUISICAO] AS R INNER JOIN [TBFUNCIONARIO] AS FU
             ON
-                FU.ID = R.FUNCIONARIO_ID
-            FROM
-                [TBREQUISICAO] AS R LEFT JOIN [TBPACIENTE] AS P
+                FU.ID = R.FUNCIONARIO_ID INNER JOIN
+                [TBPACIENTE] AS P
             ON
                 P.ID = R.PACIENTE_ID
-            FROM
-                [TBREQUISICAO] AS R LEFT JOIN [TBMEDICAMENTO] AS M
+                INNER JOIN [TBMEDICAMENTO] AS M
             ON
                 M.ID = R.MEDICAMENTO_ID
-            FROM
-                [TBREQUISICAO] AS R LEFT JOIN [TBFORNECEDOR] AS FO
+                INNER JOIN [TBFORNECEDOR] AS FO
             ON
                 FO.ID = M.FORNECEDOR_ID
-            WHERE 
-                R.[ID] = @ID";
-
+            WHERE
+                R.ID = @ID";
+    
         #endregion
 
         public ValidationResult Inserir(Requisicao novoRegistro)
@@ -237,6 +231,26 @@ namespace ControleMedicamentos.Infra.BancoDados.ModuloRequisicao
             return requisicoes;
         }
 
+        public Requisicao SelecionarPorNumero(int id)
+        {
+            SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
+
+            SqlCommand comandoSelecao = new SqlCommand(sqlSelecionarPorId, conexaoComBanco);
+
+            comandoSelecao.Parameters.AddWithValue("ID", id);
+
+            conexaoComBanco.Open();
+            SqlDataReader leitorRequisicao = comandoSelecao.ExecuteReader();
+
+            Requisicao requisicao = null;
+            if (leitorRequisicao.Read())
+                requisicao = ConverterParaRequisicoes(leitorRequisicao);
+
+            conexaoComBanco.Close();
+
+            return requisicao;
+        }
+
         private Requisicao ConverterParaRequisicoes(SqlDataReader leitorRequisicao)
         {
             int id = Convert.ToInt32(leitorRequisicao["ID"]);
@@ -291,15 +305,10 @@ namespace ControleMedicamentos.Infra.BancoDados.ModuloRequisicao
                     Nome = nomeMedicamento,
                     Descricao = descricao,
                     Lote = lote,
-                    Validade = validade,
+                    Validade = validade
                 };
             }
             return requisicao;
-        }
-
-        public Requisicao SelecionarPorNumero(int numero)
-        {
-            throw new NotImplementedException();
         }
 
         private void ConfigurarParametrosRequisicao(Requisicao novoRegistro, SqlCommand comando)
