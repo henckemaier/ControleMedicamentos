@@ -1,20 +1,16 @@
 ﻿using ControleMedicamentos.Dominio.ModuloPaciente;
 using ControleMedicamentos.Infra.BancoDados.Compartilhado;
 using ControleMedicamentos.Infra.BancoDados.ModuloPaciente;
+using ControleMedicamentos.Infra.BancoDados.Tests.Compartilhado;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ControleMedicamentos.Infra.BancoDados.Tests.ModuloPaciente
 {
     [TestClass]
-    public class RepositorioPacienteEmBancoDadosTest
+    public class RepositorioPacienteEmBancoDadosTest : BaseTest
     {
         public RepositorioPacienteEmBancoDadosTest()
         {
-            string sql =
-                @"DELETE FROM TBPACIENTE;
-                  DBCC CHECKIDENT (TBPACIENTE, RESEED, 0)";
-
-            Db.ExecutarSql(sql);
         }
 
         [TestMethod]

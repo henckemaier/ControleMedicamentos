@@ -19,7 +19,7 @@ namespace ControleMedicamentos.Dominio.ModuloMedicamento
 
         public List<Requisicao> Requisicoes { get; set; }
 
-        public Fornecedor Fornecedor{ get; set; }
+        public Fornecedor Fornecedor { get; set; }
 
         public int QuantidadeRequisicoes { get { return Requisicoes.Count; } }
 

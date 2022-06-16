@@ -1,20 +1,16 @@
 ﻿using ControleMedicamentos.Dominio.ModuloFornecedor;
 using ControleMedicamentos.Infra.BancoDados.Compartilhado;
 using ControleMedicamentos.Infra.BancoDados.ModuloFornecedor;
+using ControleMedicamentos.Infra.BancoDados.Tests.Compartilhado;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ControleMedicamentos.Infra.BancoDados.Tests.ModuloFornecedor
 {
     [TestClass]
-    public class RepositorioFornecedorEmBancoDadosTest
+    public class RepositorioFornecedorEmBancoDadosTest : BaseTest
     {
         public RepositorioFornecedorEmBancoDadosTest()
         {
-            string sql =
-                @"DELETE FROM TBFORNECEDOR;
-                  DBCC CHECKIDENT (TBFORNECEDOR, RESEED, 0)";
-
-            Db.ExecutarSql(sql);
         }
 
         [TestMethod]

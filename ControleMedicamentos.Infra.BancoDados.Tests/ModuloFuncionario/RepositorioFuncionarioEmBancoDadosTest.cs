@@ -1,20 +1,16 @@
 ﻿using ControleMedicamentos.Dominio.ModuloFuncionario;
 using ControleMedicamentos.Infra.BancoDados.Compartilhado;
 using ControleMedicamentos.Infra.BancoDados.ModuloFuncionario;
+using ControleMedicamentos.Infra.BancoDados.Tests.Compartilhado;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ControleMedicamentos.Infra.BancoDados.Tests.ModuloFuncionario
 {
     [TestClass]
-    public class RepositorioFuncionarioEmBancoDadosTest
+    public class RepositorioFuncionarioEmBancoDadosTest : BaseTest
     {
         public RepositorioFuncionarioEmBancoDadosTest()
         {
-            string sql =
-                @"DELETE FROM TBFUNCIONARIO;
-                  DBCC CHECKIDENT (TBFUNCIONARIO, RESEED, 0)";
-
-            Db.ExecutarSql(sql);
         }
 
         [TestMethod]
